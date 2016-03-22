@@ -33,9 +33,12 @@ class Flatten(Actor):
 
     '''**Flattens a dict structure of arbitrary depth into individual metric events.**
 
-    This module takes a <dict> structure and recursively travels it flattening
-    the namespace into a dotted format untill a numeric value is encountered.
-    For each metric a <wishbone.event.Metric> datastructure is created.
+        This module takes a <dict> structure and recursively travels it
+        flattening the namespace into a dotted format untill a numeric value
+        is encountered. For each metric a <wishbone.event.Metric>
+        datastructure is created and stored in the @data part of
+        <wishbone.event.Event>.
+
 
     Non-numeric values are ignored.
 
