@@ -1,109 +1,63 @@
-              __       __    __
-    .--.--.--|__.-----|  |--|  |--.-----.-----.-----.
-    |  |  |  |  |__ --|     |  _  |  _  |     |  -__|
-    |________|__|_____|__|__|_____|_____|__|__|_____|
-                                       version 2.1.2
+            __       __    __
+  .--.--.--|__.-----|  |--|  |--.-----.-----.-----.
+  |  |  |  |  |__ --|     |  _  |  _  |     |  -__|
+  |________|__|_____|__|__|_____|_____|__|__|_____|
+                                     version 2.1.2
 
-    Build composable event pipeline servers with minimal effort.
-
-
-    =========================
-    wishbone.input.livestatus
-    =========================
-
-    Version: 0.1.0
-
-    Queries Livestatus at the chosen interval.
-    ------------------------------------------
+  Build composable event pipeline servers with minimal effort.
 
 
-        Queries LiveStatus with the predefined query and returns each returned
-        record as new event
+  =======================
+  wishbone.encode.flatten
+  =======================
+
+  Version: 0.1.0
+
+  Flattens a dict structure of arbitrary depth into individual metric events.
+  ---------------------------------------------------------------------------
 
 
-        Parameters:
+      This module takes a <dict> structure and recursively travels it flattening
+      the namespace into a dotted format untill a numeric value is encountered.
+      For each metric a <wishbone.event.Metric> datastructure is created.
 
-            - host(str)("127.0.0.1")
-               |  The Livestatus address/hostname to connect to.
+      Non-numeric values are ignored.
 
-            - port(int)(6557)
-               |  Explaining the parameter.
+      For example:
 
-            - timeout(int)(10)
-               |  Timeout in seconds to connect.
+          {"server": {"host01": {"memory": {"free": 10, "consumed": 90}}}}
 
-            - query(str)("GET Status")
-               |  The query to execute
+          Would generate following metrics:
 
-            - interval(int)(10)
-               |  The interval to query
+          server.host01.memory.free
+          server.host01.memory.consumed
 
-        Queues:
+      These metrics are converted to the Wishbone metric data format:
 
-            - outbox
-               |  A description of the queue
+          http://wishbone.readthedocs.org/en/latest/logs%20and%20metrics.html#format
 
-    
-          __       __    __
-.--.--.--|__.-----|  |--|  |--.-----.-----.-----.
-|  |  |  |  |__ --|     |  _  |  _  |     |  -__|
-|________|__|_____|__|__|_____|_____|__|__|_____|
-                                   version 2.1.2
-
-Build composable event pipeline servers with minimal effort.
+      The module is expecting a Python <dict> type.  That means you should have
+      already decoded the incoming data using a module like wishbone.decode.json.
 
 
-=======================
-wishbone.encode.flatten
-=======================
+      Parameters:
 
-Version: 0.1.0
+          - type(str)("wishbone")
+             |  An arbitrary string to assign to the "type" field of the Metric
+             |  datastructure.
 
-Flattens a dict structure of arbitrary depth into individual metric events.
----------------------------------------------------------------------------
+          - source(str)("wishbone")
+             |  An arbitrary string to assign to the "source" field of the Metric
+             |  datastructure.
 
-
-    This module takes a <dict> structure and recursively travels it flattening
-    the namespace into a dotted format untill a numeric value is encountered.
-    For each metric a <wishbone.event.Metric> datastructure is created.
-
-    Non-numeric values are ignored.
-
-    For example:
-
-        {"server": {"host01": {"memory": {"free": 10, "consumed": 90}}}}
-
-        Would generate following metrics:
-
-        server.host01.memory.free
-        server.host01.memory.consumed
-
-    These metrics are converted to the Wishbone metric data format:
-
-        http://wishbone.readthedocs.org/en/latest/logs%20and%20metrics.html#format
-
-    The module is expecting a Python <dict> type.  That means you should have
-    already decoded the incoming data using a module like wishbone.decode.json.
+          - tags(set)()
+             |  An arbitrary set of tags assign to the "tags" field of the Metric
+             |  datastructure.
 
 
-    Parameters:
+      Queues:
 
-        - type(str)("wishbone")
-           |  An arbitrary string to assign to the "type" field of the Metric
-           |  datastructure.
+          - inbox:    Incoming events.
 
-        - source(str)("wishbone")
-           |  An arbitrary string to assign to the "source" field of the Metric
-           |  datastructure.
+          - outbox:   Outgoing events with @data containing the wishbone.event.Metric data.
 
-        - tags(set)()
-           |  An arbitrary set of tags assign to the "tags" field of the Metric
-           |  datastructure.
-
-
-    Queues:
-
-        - inbox:    Incoming events.
-
-        - outbox:   Outgoing events with @data containing the wishbone.event.Metric data.
-    
