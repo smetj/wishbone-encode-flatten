@@ -61,11 +61,14 @@ class Flatten(Actor):
 
     Parameters:
 
+        - source(str)("@data")
+           |  The event field containing the data to convert.
+
         - type(str)("wishbone")
            |  An arbitrary string to assign to the "type" field of the Metric
            |  datastructure.
 
-        - source(str)("wishbone")
+        - metric_source(str)("wishbone")
            |  An arbitrary string to assign to the "source" field of the Metric
            |  datastructure.
 
@@ -81,7 +84,7 @@ class Flatten(Actor):
         - outbox:   Outgoing events with @data containing the wishbone.event.Metric data.
     '''
 
-    def __init__(self, actor_config, type="wishbone", source="wishbone", tags=()):
+    def __init__(self, actor_config, source="@data", type="wishbone", metric_source="wishbone", tags=()):
         Actor.__init__(self, actor_config)
 
         self.pool.createQueue("inbox")
@@ -90,11 +93,12 @@ class Flatten(Actor):
 
     def consume(self, event):
 
-        if isinstance(event.get(), dict) or isinstance(event.get(), list):
-            for name, value in self.recurseData(event.get()):
-                metric = Metric(time(), self.kwargs.type, self.kwargs.source, name, value, "", self.kwargs.tags)
-                e = Event(metric)
-                self.submit(e, self.pool.queue.outbox)
+        data = event.get(self.kwargs.source)
+
+        if isinstance(data, dict) or isinstance(data, list):
+            for name, value in self.recurseData(data):
+                metric = Metric(time(), self.kwargs.type, self.kwargs.metric_source, name, value, "", self.kwargs.tags)
+                self.submit(Event(metric), self.pool.queue.outbox)
         else:
             raise Exception("Dropped incoming data because not of type <dict>. Perhaps you forgot to feed the data through wishbone.decode.json first?")
 
