@@ -62,7 +62,7 @@ setup(
     author='Jelle Smet',
     author_email='development@smetj.net',
 
-    url='https://github.com/smetj/wishbone-encode-jsonflatten',
+    url='https://github.com/smetj/wishbone-encode-flatten',
     download_url='https://github.com/smetj/wishbone-input-livestatus/tarball/master',
     classifiers=['Development Status :: 5 - Production/Stable',
                  'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
