@@ -27,7 +27,7 @@ from setuptools.command.test import test as TestCommand
 import sys, os
 
 PROJECT = 'wishbone_encode_flatten'
-VERSION = '0.1.1'
+VERSION = '0.1.2'
 
 install_requires = [
     'wishbone>=2.1.1'
