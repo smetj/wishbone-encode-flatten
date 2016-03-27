@@ -57,7 +57,7 @@ setup(
     name=PROJECT,
     version=VERSION,
 
-    description='A Wishbone module which Flattens a dict structure of arbitrary depth into individual metric events.',
+    description='A Wishbone encode module to flatten a dict structure of arbitrary depth into individual metric events.',
     long_description=long_description,
 
     author='Jelle Smet',
