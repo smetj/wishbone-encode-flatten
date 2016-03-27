@@ -20,12 +20,11 @@
     ---------------------------------------------------------------------------
 
 
-            This module takes a <dict> structure and recursively travels it
-            flattening the namespace into a dotted format untill a numeric value
-            is encountered. For each metric a <wishbone.event.Metric>
-            datastructure is created and stored in the @data part of
-            <wishbone.event.Event>.
-
+        This module takes a <dict> structure and recursively travels it
+        flattening the namespace into a dotted format untill a numeric value
+        is encountered. For each metric a <wishbone.event.Metric>
+        datastructure is created and stored in the @data part of
+        <wishbone.event.Event>.
 
         Non-numeric values are ignored.
 
@@ -69,3 +68,4 @@
             - inbox:    Incoming events.
 
             - outbox:   Outgoing events with @data containing the wishbone.event.Metric data.
+
