@@ -1,5 +1,7 @@
 ::
 
+::
+
               __       __    __
     .--.--.--|__.-----|  |--|  |--.-----.-----.-----.
     |  |  |  |  |__ --|     |  _  |  _  |     |  -__|
@@ -69,4 +71,3 @@
             - inbox:    Incoming events.
 
             - outbox:   Outgoing events with @data containing the wishbone.event.Metric data.
-
