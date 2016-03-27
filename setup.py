@@ -24,25 +24,21 @@
 
 from setuptools import setup, find_packages
 from setuptools.command.test import test as TestCommand
-import sys, os
+import sys
+
 
 PROJECT = 'wishbone_encode_flatten'
-VERSION = '0.1.2'
+VERSION = '1.0.0'
 
 install_requires = [
     'wishbone>=2.1.1'
 ]
 
 try:
-    if os.path.isfile("README.rst"):
-        with open('README.rst', 'rt') as f:
-            long_description = f.read()
-    elif os.path.isfile("README.md"):
-        import pypandoc
-        long_description = pypandoc.convert('README.md', 'rst')
-except Exception as err:
-    print "Check whether README.rst or README.md exists."
-    sys.exit(1)
+    with open('README.rst', 'rt') as f:
+        long_description = f.read()
+except IOError:
+    long_description = ''
 
 
 class PyTest(TestCommand):

@@ -1,3 +1,4 @@
+::
 
               __       __    __
     .--.--.--|__.-----|  |--|  |--.-----.-----.-----.
@@ -8,21 +9,23 @@
     Build composable event pipeline servers with minimal effort.
 
 
+
     =======================
     wishbone.encode.flatten
     =======================
 
-    Version: 0.1.0
+    Version: 1.0.0
 
     Flattens a dict structure of arbitrary depth into individual metric events.
     ---------------------------------------------------------------------------
 
 
-        This module takes a <dict> structure and recursively travels it
-        flattening the namespace into a dotted format untill a numeric value
-        is encountered. For each metric a <wishbone.event.Metric>
-        datastructure is created and stored in the @data part of
-        <wishbone.event.Event>.
+            This module takes a <dict> structure and recursively travels it
+            flattening the namespace into a dotted format untill a numeric value
+            is encountered. For each metric a <wishbone.event.Metric>
+            datastructure is created and stored in the @data part of
+            <wishbone.event.Event>.
+
 
         Non-numeric values are ignored.
 
@@ -45,11 +48,14 @@
 
         Parameters:
 
+            - source(str)("@data")
+               |  The event field containing the data to convert.
+
             - type(str)("wishbone")
                |  An arbitrary string to assign to the "type" field of the Metric
                |  datastructure.
 
-            - source(str)("wishbone")
+            - metric_source(str)("wishbone")
                |  An arbitrary string to assign to the "source" field of the Metric
                |  datastructure.
 
