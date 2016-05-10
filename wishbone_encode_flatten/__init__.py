@@ -23,4 +23,4 @@
 #
 
 
-from flatten import Flatten
+from .flatten import Flatten

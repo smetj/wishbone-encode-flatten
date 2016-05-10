@@ -51,5 +51,5 @@ def test_module_Flatten_default():
     assert isinstance(one.get(), Metric)
     assert isinstance(two.get(), Metric)
 
-    assert one.get().name == 'server.host01.memory.free'
-    assert two.get().name == 'server.host01.memory.consumed'
+    assert ( (one.get().name == 'server.host01.memory.free') or (one.get().name == 'server.host01.memory.consumed'))
+    assert ( (two.get().name == 'server.host01.memory.free') or (two.get().name == 'server.host01.memory.consumed'))

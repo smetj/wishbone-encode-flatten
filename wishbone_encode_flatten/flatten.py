@@ -108,13 +108,13 @@ class Flatten(Actor):
                 for a, b in self.recurseData(item, breadcrumbs):
                     yield a, b
         elif isinstance(data, dict):
-            for key, value in data.iteritems():
+            for key, value in data.items():
                 name = self.__concatBreadCrumbs(breadcrumbs, key)
                 for a, b in self.recurseData(value, name):
                     yield a, b
         elif isinstance(data, bool):
             pass
-        elif isinstance(data, (int, long, float)):
+        elif isinstance(data, (int, float)):
             yield breadcrumbs, data
 
     def __concatBreadCrumbs(self, breadcrumbs, element_name):
